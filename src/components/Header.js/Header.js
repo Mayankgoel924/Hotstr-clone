@@ -1,8 +1,15 @@
 import React from 'react'
+import DehazeIcon from '@mui/icons-material/Dehaze';
 import styled from 'styled-components'
+import {useState} from 'react';
 
 function Header() {
+    const [isActive, setIsActive] = useState(true);
+    const changeDisplay = () =>{
+        setIsActive(!isActive);
+    }
   return (
+    <>
     <Nav>
         <Logo src="/images/logo.svg" />
         <NavMenu>
@@ -33,9 +40,67 @@ function Header() {
         </NavMenu>
         <UserImg src="https://static.zerochan.net/Link.full.841942.jpg" />
     </Nav>
+
+    <Nav2>
+        <Logo src="/images/logo.svg" />
+        <DehazeIcon style={{marginLeft:'auto'}} onClick={changeDisplay} />
+    </Nav2>
+    <PhoneNav style={{display: isActive?'none':'block'}}>
+        <a>
+            <img src="/images/home-icon.svg"/> &nbsp;
+            <span>HOME</span>
+        </a>
+        <a>
+                <img src="/images/search-icon.svg"/> &nbsp;
+                <span>SEARCH</span>
+            </a>
+            <a>
+                <img src="/images/watchlist-icon.svg"/> &nbsp;
+                <span>WATCHLIST</span>
+            </a>
+            <a>
+                <img src="/images/original-icon.svg"/> &nbsp;
+                <span>ORIGINALS</span>
+            </a>
+            <a>
+                <img src="/images/movie-icon.svg"/> &nbsp;
+                <span>MOVIE</span>
+            </a>
+            <a>
+                <img src="/images/series-icon.svg"/> &nbsp;
+                <span>SERIES</span>
+            </a>
+    </PhoneNav>
+    </>
   )
 }
 export default Header
+
+const PhoneNav = styled.div`
+    background-color: #090b13;
+    width: 100%;
+    height: auto;
+    a{
+        padding : 10px 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        img{
+            height: 20px;
+        }
+        border-bottom: 1px solid grey;
+    }
+`
+const Nav2 = styled.nav`
+    height: 70px;
+    background-color: #090b13;
+    display: flex;
+    align-items: center;
+    padding: 0 36px;
+    @media(min-width:736px){
+        display: none;
+    }
+`
 
 const Nav = styled.nav`
     height: 70px;
@@ -45,6 +110,9 @@ const Nav = styled.nav`
     padding: 0 36px;
     @media(max-width: 825px){
         padding: 0 15px;
+    }
+    @media(max-width:735px){
+        display: none;
     }
 `
 
