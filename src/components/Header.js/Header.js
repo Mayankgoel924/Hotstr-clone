@@ -108,6 +108,7 @@ const Nav = styled.nav`
     display: flex;
     align-items: center;
     padding: 0 36px;
+    overflow-x:hidden;
     @media(max-width: 825px){
         padding: 0 15px;
     }
