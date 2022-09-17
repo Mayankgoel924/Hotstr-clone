@@ -12,18 +12,26 @@ function Detail() {
         </ImageTitle>
         <Controls>
             <PlayButton>
-
+                <img src="/images/play-icon-black.png" />
+                <span>PLAY</span>
             </PlayButton>
             <TrailerButton>
-
+                <img src="/images/play-icon-white.png" />
+                <span>TRAILER</span>
             </TrailerButton>
             <AddButton>
-
+                <span>+</span>
             </AddButton>
             <GroupWatchButton>
-
+                <img src="/images/group-icon.png" />
             </GroupWatchButton>
         </Controls>
+        <SubTitle>
+            2018 &#8226; 7m &bull; Family, Fantasy, Kids, Animation
+        </SubTitle>
+        <Description>
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Velit, aperiam delectus. Architecto necessitatibus nihil deserunt amet provident earum labore eos pariatur dignissimos, quis quidem nobis laborum suscipit numquam veritatis. Ex.
+        </Description>
     </Container>
   )
 }
@@ -34,6 +42,7 @@ const Container = styled.div`
     min-height: calc(100vh - 70px);
     padding: 0 calc(3.5vw + 5px);
     position: relative;
+    overflow: hidden;
 `
 
 const Background = styled.div`
@@ -57,6 +66,7 @@ const ImageTitle = styled.div`
     min-height: 170px;
     width: 30vw;
     min-width: 200px;
+    margin-top: 60px;
 
     img{
         width: 100%;
@@ -65,12 +75,113 @@ const ImageTitle = styled.div`
     }
 `
 
-const Controls = styled.div``
+const Controls = styled.div`
+    display: flex;
+    align-items: center;
+`
 
-const PlayButton = styled.div``
+const PlayButton = styled.button`
+    border-radius: 4px;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    height: 56px;
+    background: rgb(249,249,249);
+    border: none;
+    padding: 0 24px;
+    margin-right: 22px;
+    letter-spacing: 1.8px;
+    cursor: pointer;
 
-const TrailerButton = styled.div``
+    &:hover{
+        background: rgb(198,198,198);
+    }
 
-const AddButton = styled.div``
+    @media(max-width: 660px){
+        font-size: 12px;  
+        height: 46px; 
+        padding: 0 18px;
+        margin-right: 18px;
+    }
+    @media(max-width: 470px){
+        font-size: 12px;  
+        height: 40px; 
+        padding: 0 9px;
+        margin-right: 10px;
+    }
+    @media(max-width: 380px){
+        height: 40px; 
+        padding: 0 5px;
+        margin-right: 10px;
+    }
+`
 
-const GroupWatchButton = styled.div``
+const TrailerButton = styled(PlayButton)`
+    background: rgba(0,0,0,0.3);
+    border: 1px solid rgb(249,249,249);
+    color: rgb(249,249,249);
+    text-transform: uppercase;
+`
+
+const AddButton = styled.button`
+    margin-right: 16px;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: 2px solid white;
+    background-color: rgba(0,0,0,0.6); 
+    cursor: pointer;
+    span{
+        font-size: 30px;
+        color: white;
+    }
+
+    @media(max-width: 660px){
+        width: 35px;
+        height: 35px;
+        span{
+            font-size: 22px;
+        }
+    }
+    @media(max-width: 380px){
+        margin-right: 10px
+    }
+`
+
+const GroupWatchButton = styled(AddButton)`
+    background: black;
+    @media(max-width: 380px){
+        margin-right: 0px
+    }
+`
+const SubTitle = styled.div`
+    color: rgb(249,249,249);
+    font-size: 15px;
+    min-height: 20px;
+    margin-top: 26px;
+
+    @media(max-width: 660px){
+        font-size: 13px;
+    }
+    @media(max-width: 470px){
+        font-size: 12px;
+    }
+`
+
+const Description = styled.div`
+    line-height: 1.4;
+    font-size: 20px;
+    margin-top: 16px;
+    color: rgb(249,249,249);
+    max-width: 760px;
+
+    @media(max-width: 660px){
+        font-size: 15px;
+    }
+    @media(max-width: 470px){
+        font-size: 13px;
+    }
+`

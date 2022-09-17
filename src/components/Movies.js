@@ -4,30 +4,67 @@ import styled from 'styled-components'
 function Movies
 () {
   return (
-    <Container>
-        <h4>Recommended for You</h4>
-        <Content>
-            <Wrap>
-                <img src="https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/6EA416AD3B15FCC1BADC817A932A57FFF707556DB2233FFCB4CFEB7C8EEDE23C/scale?width=400&aspectRatio=1.78&format=jpeg" />
-            </Wrap>
-            <Wrap>
-                <img src="https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/6EA416AD3B15FCC1BADC817A932A57FFF707556DB2233FFCB4CFEB7C8EEDE23C/scale?width=400&aspectRatio=1.78&format=jpeg" />
-            </Wrap>
-            <Wrap>
-                <img src="https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/6EA416AD3B15FCC1BADC817A932A57FFF707556DB2233FFCB4CFEB7C8EEDE23C/scale?width=400&aspectRatio=1.78&format=jpeg" />
-            </Wrap>
-            <Wrap>
-                <img src="https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/6EA416AD3B15FCC1BADC817A932A57FFF707556DB2233FFCB4CFEB7C8EEDE23C/scale?width=400&aspectRatio=1.78&format=jpeg" />
-            </Wrap>
-        </Content>
-    </Container>
+    <>
+        <Container>
+            <h4>Recommended for You</h4>
+            <Content>
+                <Wrap>
+                    <img src="https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/6EA416AD3B15FCC1BADC817A932A57FFF707556DB2233FFCB4CFEB7C8EEDE23C/scale?width=400&aspectRatio=1.78&format=jpeg" />
+                </Wrap>
+                <Wrap>
+                    <img src="https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/6EA416AD3B15FCC1BADC817A932A57FFF707556DB2233FFCB4CFEB7C8EEDE23C/scale?width=400&aspectRatio=1.78&format=jpeg" />
+                </Wrap>
+                <Wrap>
+                    <img src="https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/6EA416AD3B15FCC1BADC817A932A57FFF707556DB2233FFCB4CFEB7C8EEDE23C/scale?width=400&aspectRatio=1.78&format=jpeg" />
+                </Wrap>
+                <Wrap>
+                    <img src="https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/6EA416AD3B15FCC1BADC817A932A57FFF707556DB2233FFCB4CFEB7C8EEDE23C/scale?width=400&aspectRatio=1.78&format=jpeg" />
+                </Wrap>
+            </Content>
+        </Container>
+        <Container2>
+            <h4>Recommended for You</h4>
+            <Line1>
+                <Wrap>
+                    <img src="https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/6EA416AD3B15FCC1BADC817A932A57FFF707556DB2233FFCB4CFEB7C8EEDE23C/scale?width=400&aspectRatio=1.78&format=jpeg" />
+                </Wrap>
+                <Wrap>
+                    <img src="https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/6EA416AD3B15FCC1BADC817A932A57FFF707556DB2233FFCB4CFEB7C8EEDE23C/scale?width=400&aspectRatio=1.78&format=jpeg" />
+                </Wrap>
+            </Line1>
+            <Line1>
+                <Wrap>
+                    <img src="https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/6EA416AD3B15FCC1BADC817A932A57FFF707556DB2233FFCB4CFEB7C8EEDE23C/scale?width=400&aspectRatio=1.78&format=jpeg" />
+                </Wrap>
+                <Wrap>
+                    <img src="https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/6EA416AD3B15FCC1BADC817A932A57FFF707556DB2233FFCB4CFEB7C8EEDE23C/scale?width=400&aspectRatio=1.78&format=jpeg" />
+                </Wrap>
+            </Line1>
+        </Container2>
+    </>
   )
 }
 
 export default Movies
 
-const Container = styled.div`
+const Container2 = styled.div`
+    @media(min-width: 735px){
+        display: none;
+    }
+`
 
+const Line1 = styled.div`
+    display: grid;
+    grid-gap: 25px;
+    grid-template-columns: repeat(2,minmax(0,0.4fr));
+    justify-content: center;
+    margin-top: 5%;
+`
+
+const Container = styled.div`
+    @media(max-width: 734px){
+        display: none;
+    }
 `
 
 const Content = styled.div`
