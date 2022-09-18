@@ -1,7 +1,7 @@
 import React from 'react'
 import DehazeIcon from '@mui/icons-material/Dehaze';
 import styled from 'styled-components'
-import {useState} from 'react';
+import { useState } from 'react';
 
 function Header() {
     const [isActive, setIsActive] = useState(true);

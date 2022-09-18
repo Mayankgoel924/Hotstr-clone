@@ -1,76 +1,52 @@
 import React from 'react'
 import styled from 'styled-components'
+import { Link } from 'react-router-dom'
+import { selectMovies } from '../features/movie/movieSlice'
+import { useSelector } from 'react-redux'
 
-function Movies
-() {
+function Movies() {
+
+    const movies = useSelector(selectMovies);
   return (
     <>
         <Container>
             <h4>Recommended for You</h4>
             <Content>
-                <Wrap>
-                    <img src="https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/6EA416AD3B15FCC1BADC817A932A57FFF707556DB2233FFCB4CFEB7C8EEDE23C/scale?width=400&aspectRatio=1.78&format=jpeg" />
-                </Wrap>
-                <Wrap>
-                    <img src="https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/6EA416AD3B15FCC1BADC817A932A57FFF707556DB2233FFCB4CFEB7C8EEDE23C/scale?width=400&aspectRatio=1.78&format=jpeg" />
-                </Wrap>
-                <Wrap>
-                    <img src="https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/6EA416AD3B15FCC1BADC817A932A57FFF707556DB2233FFCB4CFEB7C8EEDE23C/scale?width=400&aspectRatio=1.78&format=jpeg" />
-                </Wrap>
-                <Wrap>
-                    <img src="https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/6EA416AD3B15FCC1BADC817A932A57FFF707556DB2233FFCB4CFEB7C8EEDE23C/scale?width=400&aspectRatio=1.78&format=jpeg" />
-                </Wrap>
+                {movies &&
+                    movies.map((movie)=>(
+                        <Wrap key={movie.id}>
+                            <Link to={`/detail/${movie.id}`}>
+                                <img src={movie.cardImg} />
+                            </Link>
+                        </Wrap>
+                    ))
+                }
             </Content>
         </Container>
-        <Container2>
-            <h4>Recommended for You</h4>
-            <Line1>
-                <Wrap>
-                    <img src="https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/6EA416AD3B15FCC1BADC817A932A57FFF707556DB2233FFCB4CFEB7C8EEDE23C/scale?width=400&aspectRatio=1.78&format=jpeg" />
-                </Wrap>
-                <Wrap>
-                    <img src="https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/6EA416AD3B15FCC1BADC817A932A57FFF707556DB2233FFCB4CFEB7C8EEDE23C/scale?width=400&aspectRatio=1.78&format=jpeg" />
-                </Wrap>
-            </Line1>
-            <Line1>
-                <Wrap>
-                    <img src="https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/6EA416AD3B15FCC1BADC817A932A57FFF707556DB2233FFCB4CFEB7C8EEDE23C/scale?width=400&aspectRatio=1.78&format=jpeg" />
-                </Wrap>
-                <Wrap>
-                    <img src="https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/6EA416AD3B15FCC1BADC817A932A57FFF707556DB2233FFCB4CFEB7C8EEDE23C/scale?width=400&aspectRatio=1.78&format=jpeg" />
-                </Wrap>
-            </Line1>
-        </Container2>
     </>
   )
 }
 
 export default Movies
 
-const Container2 = styled.div`
-    @media(min-width: 735px){
-        display: none;
-    }
-`
-
-const Line1 = styled.div`
-    display: grid;
-    grid-gap: 25px;
-    grid-template-columns: repeat(2,minmax(0,0.4fr));
-    justify-content: center;
-    margin-top: 5%;
-`
-
 const Container = styled.div`
-    @media(max-width: 734px){
-        display: none;
-    }
+    
 `
 
 const Content = styled.div`
     display: grid;
     grid-gap: 25px;
     grid-template-columns: repeat(4,minmax(0,1fr));
+
+    @media(max-width: 735px){
+        align-items: center;
+        justify-content: center;
+        grid-template-columns: repeat(3,minmax(0,0.33fr));
+    }
+
+    @media(max-width: 400px){
+        grid-template-columns: repeat(2,minmax(0,0.4fr));
+    }
 `
 
 const Wrap = styled.div`
