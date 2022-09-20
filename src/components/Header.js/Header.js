@@ -1,9 +1,58 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import DehazeIcon from '@mui/icons-material/Dehaze';
 import styled from 'styled-components'
-import { useState } from 'react';
+import { auth, provider } from '../../firebase'
+import { selectUserName, selectUserPhoto, setUserLogin, setSignOut } from '../../features/user/userSlice'
+import { useDispatch, useSelector } from 'react-redux';
+import { signInWithPopup, signOut } from 'firebase/auth';
+import { useNavigate } from "react-router-dom";
 
 function Header() {
+    let navigate = useNavigate();
+    const dispatch = useDispatch();
+    const userName = useSelector(selectUserName);
+    const userPhoto = useSelector(selectUserPhoto);
+
+    useEffect(()=>{
+        auth.onAuthStateChanged(async(user)=>{
+            if(user){
+                dispatch(setUserLogin({
+                    name: user.displayName,
+                    email: user.email,
+                    photo: user.photoURL
+                }))
+                navigate("/");
+            }
+        })
+    },[])
+
+    const signIn = () => {
+        signInWithPopup(auth, provider)
+        .then((result)=>{
+            // console.log(result);
+            let user = result.user;
+            dispatch(setUserLogin({
+                name: user.displayName,
+                email: user.email,
+                photo: user.photoURL
+            }))
+            navigate("/");
+        })
+        .catch((error)=>{
+            alert(error.message);
+        });
+    };
+
+    const signout = () => {
+        signOut(auth)
+        .then(()=> {
+            dispatch(setSignOut());
+            navigate("/login");
+        })
+         .catch((error)=>{
+            alert(error.message);
+         });
+    };
     const [isActive, setIsActive] = useState(true);
     const changeDisplay = () =>{
         setIsActive(!isActive);
@@ -11,38 +60,51 @@ function Header() {
   return (
     <>
     <Nav>
-        <Logo src="/images/logo.svg" />
-        <NavMenu>
-            <a>
-                <img src="/images/home-icon.svg"/>
-                <span>HOME</span>
-            </a>
-            <a>
-                <img src="/images/search-icon.svg"/>
-                <span>SEARCH</span>
-            </a>
-            <a>
-                <img src="/images/watchlist-icon.svg"/>
-                <span>WATCHLIST</span>
-            </a>
-            <a>
-                <img src="/images/original-icon.svg"/>
-                <span>ORIGINALS</span>
-            </a>
-            <a>
-                <img src="/images/movie-icon.svg"/>
-                <span>MOVIE</span>
-            </a>
-            <a>
-                <img src="/images/series-icon.svg"/>
-                <span>SERIES</span>
-            </a>
-        </NavMenu>
-        <UserImg src="https://static.zerochan.net/Link.full.841942.jpg" />
+        <a href="/">
+            <Logo src="/images/logo.svg" />
+        </a>
+        {
+            !userName ? (
+            <LoginContainer>
+                <Login onClick={signIn}>Login</Login>
+            </LoginContainer> 
+            ):
+           ( <>
+                <NavMenu>
+                <a>
+                    <img src="/images/home-icon.svg"/>
+                    <span>HOME</span>
+                </a>
+                <a>
+                    <img src="/images/search-icon.svg"/>
+                    <span>SEARCH</span>
+                </a>
+                <a>
+                    <img src="/images/watchlist-icon.svg"/>
+                    <span>WATCHLIST</span>
+                </a>
+                <a>
+                    <img src="/images/original-icon.svg"/>
+                    <span>ORIGINALS</span>
+                </a>
+                <a>
+                    <img src="/images/movie-icon.svg"/>
+                    <span>MOVIE</span>
+                </a>
+                <a>
+                    <img src="/images/series-icon.svg"/>
+                    <span>SERIES</span>
+                </a>
+            </NavMenu>
+            <UserImg onClick={signout} src="https://static.zerochan.net/Link.full.841942.jpg" />
+            </> )
+        }
     </Nav>
 
     <Nav2>
-        <Logo src="/images/logo.svg" />
+        <a href="/">
+            <Logo src="/images/logo.svg" />
+        </a>
         <DehazeIcon style={{marginLeft:'auto'}} onClick={changeDisplay} />
     </Nav2>
     <PhoneNav style={{display: isActive?'none':'block'}}>
@@ -70,6 +132,12 @@ function Header() {
                 <img src="/images/series-icon.svg"/> &nbsp;
                 <span>SERIES</span>
             </a>
+            <a>
+                { !userName ? (
+                    <Login onClick={signIn}>Login</Login> ):
+                    <Logout onClick={signout}>Logout</Logout>
+                }
+            </a>
     </PhoneNav>
     </>
   )
@@ -84,6 +152,7 @@ const PhoneNav = styled.div`
         padding : 10px 0;
         display: flex;
         align-items: center;
+        cursor: pointer;
         justify-content: center;
         img{
             height: 20px;
@@ -178,4 +247,31 @@ const UserImg = styled.img`
         width: 38px;
         height: 38px;
     }
+`
+
+const Login = styled.div`
+    border: 1px solid #f9f9f9;
+    padding: 8px 16px;
+    border-radius: 4px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    background-color: rgba(0,0,0,0.6);
+    transform: all 250ms ease 0s;
+    cursor: pointer;
+
+    &:hover{
+        background-color: #f9f9f9;
+        color: #000;
+        border-color: transparent;
+    }
+`
+
+const Logout = styled(Login)`
+
+`
+
+const LoginContainer = styled.div`
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
 `

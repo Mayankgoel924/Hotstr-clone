@@ -2,37 +2,36 @@ import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { useParams } from 'react-router-dom'
 import db from '../firebase'
+import { doc, getDoc } from "firebase/firestore";
 
 function Detail() {
 
-    // const { id } = useParams();
-    // console.log(id);
-    // const [movie, setMovie] = useState();
+    const { id } = useParams();
+    const [movie, setMovie] = useState("");
 
-    // useEffect(() => {
-    //     //grab the movie fron the db
-    //         db.collection('movies')
-    //             .doc(id)
-    //             .get()
-    //             .then((doc) => {
-    //                 if (doc.exists) {
-    //                     // saves the movie data
-    //                     setMovie(doc.data());
-    //                 }
-    //                 else {
-    //                     // redirect to home page
-    //                     console.log("no such document in firebase");
-    //                 }
-    //             });
-    // }, [id]);
-    // console.log("movie is ",movie);
+    useEffect(()=>{
+        const ans = async() =>{
+            //grab the movie from the db
+            const docRef = doc(db,"movies",id);
+            const docSnap = await getDoc(docRef);
+            if(docSnap.exists()){
+                // saves the movie data
+                setMovie(docSnap.data());
+            }
+            else{
+                 // redirect to home page
+                console.log("No such document!");
+            }
+        }
+        ans();
+    },[id]);
     return (
         <Container>
             <Background>
-                <img src="https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/4F39B7E16726ECF419DD7C49E011DD95099AA20A962B0B10AA1881A70661CE45/scale?width=1440&aspectRatio=1.78&format=jpeg" />
+                <img src={movie.backgroundImg} />
             </Background>
             <ImageTitle>
-                <img src="https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/D7AEE1F05D10FC37C873176AAA26F777FC1B71E7A6563F36C6B1B497CAB1CEC2/scale?width=1440&aspectRatio=1.78" />
+                <img src={movie.titleImg} />
             </ImageTitle>
             <Controls>
                 <PlayButton>
@@ -51,10 +50,10 @@ function Detail() {
                 </GroupWatchButton>
             </Controls>
             <SubTitle>
-                2018 &#8226; 7m &bull; Family, Fantasy, Kids, Animation
+                {movie.subTitle}
             </SubTitle>
             <Description>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Velit, aperiam delectus. Architecto necessitatibus nihil deserunt amet provident earum labore eos pariatur dignissimos, quis quidem nobis laborum suscipit numquam veritatis. Ex.
+                {movie.description}
             </Description>
         </Container>
     )
